@@ -24,7 +24,7 @@ connections.Fn('token', async function(connectionId)
     }
 
     const credentials = connections.Fn('decrypt', connection.Get('credentials'));
-    const authType = provider.Get('auth_type');
+    const authType = provider.Get('auth').type;
 
     if(authType === 'api_key' || authType === 'pat')
     {

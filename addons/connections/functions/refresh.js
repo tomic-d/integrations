@@ -5,7 +5,7 @@ import providers from '#providers/addon.js';
 connections.Fn('refresh', async function(connection)
 {
     const provider = providers.ItemGet(connection.Get('provider_id'));
-    const config = provider.Get('auth_config');
+    const config = provider.Get('auth').config;
     const credentials = connections.Fn('decrypt', connection.Get('credentials'));
 
     if(!credentials.refresh_token)

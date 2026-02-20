@@ -6,10 +6,12 @@ providers.Item({
     slug: 'calendly',
     description: 'Scheduling and appointment platform.',
     icon: 'calendly',
-    auth_type: 'pat',
-    auth_config: {
-        header_name: 'Authorization',
-        header_prefix: 'Bearer'
+    auth: {
+        type: 'pat',
+        config: {
+            header_name: 'Authorization',
+            header_prefix: 'Bearer'
+        }
     },
     base_url: 'https://api.calendly.com',
     status: 'active'

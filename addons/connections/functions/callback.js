@@ -20,7 +20,7 @@ connections.Fn('callback', async function(code, state)
         throw divhunt.Error(404, 'Provider not found.');
     }
 
-    const config = provider.Get('auth_config');
+    const config = provider.Get('auth').config;
     const clientId = process.env[config.client_id_env];
     const clientSecret = process.env[config.client_secret_env];
 
