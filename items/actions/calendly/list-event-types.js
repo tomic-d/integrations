@@ -20,8 +20,7 @@ actions.Item({
 
         if(!response.ok)
         {
-            const error = await response.text();
-            throw divhunt.Error(502, error);
+            throw divhunt.Error(502, await response.text());
         }
 
         const userData = await response.json();
@@ -37,8 +36,7 @@ actions.Item({
 
         if(!result.ok)
         {
-            const error = await result.text();
-            throw divhunt.Error(502, error);
+            throw divhunt.Error(502, await result.text());
         }
 
         const data = await result.json();

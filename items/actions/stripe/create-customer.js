@@ -34,8 +34,7 @@ actions.Item({
 
         if(!response.ok)
         {
-            const error = await response.text();
-            throw divhunt.Error(502, error);
+            throw divhunt.Error(502, await response.text());
         }
 
         const data = await response.json();
