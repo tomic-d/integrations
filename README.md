@@ -188,3 +188,59 @@ node index.js
 ```
 
 gRPC on port 50000, HTTP on port 3000 (OAuth callback only).
+
+## Future Integrations
+
+Planned integrations organized by category and priority.
+
+### Tier 1 — High Priority
+
+| Provider | Category | Auth Type | Key Actions |
+|---|---|---|---|
+| Notion | Project Management | OAuth2 | Create page, Query database, Update database item |
+| HubSpot | CRM & Sales | OAuth2 | Create contact, Create deal, Update deal stage |
+| Google Sheets | Productivity | OAuth2 | Read rows, Append row, Update cell |
+| Google Drive | Storage | OAuth2 | Upload file, Create folder, List files |
+| Shopify | E-commerce | OAuth2 | Create product, Create order, Update inventory |
+| OpenAI | AI | API Key | Chat completion, Create image, Create embedding |
+| Microsoft Teams | Communication | OAuth2 | Send message, Create channel, List channels |
+
+### Tier 2 — High Value
+
+| Provider | Category | Auth Type | Key Actions |
+|---|---|---|---|
+| Airtable | Storage & Data | OAuth2 | Create record, Update record, List records |
+| Trello | Project Management | OAuth2 | Create card, Move card, Add comment |
+| Linear | Project Management | OAuth2 | Create issue, Update issue status, List issues |
+| Mailchimp | Marketing | OAuth2 | Add subscriber, Send campaign, Update tags |
+| PayPal | Finance | OAuth2 | Create payment, List transactions, Issue refund |
+| Telegram | Communication | API Key | Send message, Send file, Create group |
+
+### Tier 3 — Solid Additions
+
+| Provider | Category | Auth Type | Key Actions |
+|---|---|---|---|
+| Salesforce | CRM & Sales | OAuth2 | Create record, Update record, Run SOQL query |
+| Asana | Project Management | OAuth2 | Create task, Update task, Add comment |
+| SendGrid | Marketing & Email | API Key | Send email, Create contact, Add to list |
+| Twilio | Communication | API Key | Send SMS, Make call, List messages |
+| QuickBooks | Finance | OAuth2 | Create invoice, Record payment, Get reports |
+| Dropbox | Storage | OAuth2 | Upload file, Create shared link, List folder |
+| WordPress | No-Code & CMS | OAuth2 | Create post, Update post, Upload media |
+
+### Tier 4 — Niche but Valuable
+
+| Provider | Category | Auth Type | Key Actions |
+|---|---|---|---|
+| Pipedrive | CRM & Sales | OAuth2 | Create deal, Create person, Update deal stage |
+| Intercom | Communication | OAuth2 | Create contact, Send message, Tag user |
+| ConvertKit | Marketing | OAuth2 | Add subscriber, Apply tag, Create broadcast |
+| Anthropic | AI | API Key | Create message, Create batch |
+| Bubble | No-Code | API Key | Create thing, Modify thing, Run workflow |
+| Framer | No-Code | API Key | List sites, Publish site, List pages |
+| WooCommerce | E-commerce | API Key | Create product, List orders, Update order status |
+| Lemon Squeezy | E-commerce | API Key | List products, List orders, Create discount |
+| Wise | Finance | API Key | Create transfer, Get exchange rate, List transactions |
+| Google Analytics | Analytics | OAuth2 | Run report, Get real-time data, List properties |
+| Mixpanel | Analytics | API Key | Track event, Get funnel report, Export data |
+| Segment | Analytics | API Key | Track event, Identify user, Group user |
