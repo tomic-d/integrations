@@ -2,69 +2,98 @@ import divhunt from 'divhunt';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
-connections.Fn('callback', async function(code, state)
+connections.Fn('callback', function(code, state)
 {
-    const parts = state.split(':');
-    const providerId = parts[0];
-    const teamId = parts[1];
-
-    if(!providerId || !teamId)
+    this.methods.init = async (resolve) =>
     {
-        throw divhunt.Error(400, 'Invalid state parameter.');
-    }
+        this.resolve = resolve;
 
-    const provider = providers.ItemGet(providerId);
+        const { providerId, teamId } = this.methods.parse(state);
+        const provider = this.methods.provider(providerId);
+        const data = await this.methods.exchange(code, provider);
+        const parsed = provider.Get('callback')(data);
+        const connection = await this.methods.save(teamId, providerId, provider, parsed);
 
-    if(!provider)
-    {
-        throw divhunt.Error(404, 'Provider not found.');
-    }
-
-    const config = provider.Get('auth').config;
-    const clientId = process.env[config.client_id_env];
-    const clientSecret = process.env[config.client_secret_env];
-
-    const headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        this.resolve(connection);
     };
 
-    if(config.token_headers)
+    this.methods.parse = (state) =>
     {
-        Object.assign(headers, config.token_headers);
-    }
+        const parts = state.split(':');
+        const providerId = parts[0];
+        const teamId = parts[1];
 
-    const response = await fetch(config.token_url, {
-        method: 'POST',
-        headers,
-        body: new URLSearchParams({
-            grant_type: 'authorization_code',
-            code,
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_uri: process.env.OAUTH_REDIRECT_URI
-        })
-    });
+        if(!providerId || !teamId)
+        {
+            throw divhunt.Error(400, 'Invalid state parameter.');
+        }
 
-    if(!response.ok)
+        return { providerId, teamId };
+    };
+
+    this.methods.provider = (id) =>
     {
-        const error = await response.text();
-        throw divhunt.Error(502, 'Token exchange failed: ' + error);
-    }
+        const provider = providers.ItemGet(id);
 
-    const data = await response.json();
-    const parsed = provider.Get('callback')(data);
+        if(!provider)
+        {
+            throw divhunt.Error(404, 'Provider not found.');
+        }
 
-    const connection = connections.Item({
-        team_id: teamId,
-        provider_id: providerId,
-        status: 'active',
-        credentials: connections.Fn('encrypt', parsed.credentials),
-        metadata: parsed.metadata,
-        scopes: parsed.scopes || config.scopes || '',
-        expires_at: parsed.expires_at
+        return provider;
+    };
+
+    this.methods.exchange = async (code, provider) =>
+    {
+        const config = provider.Get('auth').config;
+        const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+        if(config.token_headers)
+        {
+            Object.assign(headers, config.token_headers);
+        }
+
+        const response = await fetch(config.token_url, {
+            method: 'POST',
+            headers,
+            body: new URLSearchParams({
+                grant_type: 'authorization_code',
+                code,
+                client_id: process.env[config.client_id_env],
+                client_secret: process.env[config.client_secret_env],
+                redirect_uri: process.env.OAUTH_REDIRECT_URI
+            })
+        });
+
+        if(!response.ok)
+        {
+            throw divhunt.Error(502, 'Token exchange failed: ' + await response.text());
+        }
+
+        return await response.json();
+    };
+
+    this.methods.save = async (teamId, providerId, provider, parsed) =>
+    {
+        const config = provider.Get('auth').config;
+
+        const connection = connections.Item({
+            team_id: teamId,
+            provider_id: providerId,
+            status: 'active',
+            credentials: connections.Fn('encrypt', parsed.credentials),
+            metadata: parsed.metadata,
+            scopes: parsed.scopes || config.scopes || '',
+            expires_at: parsed.expires_at
+        });
+
+        await connection.Create();
+
+        return connection;
+    };
+
+    return new Promise((resolve) =>
+    {
+        this.methods.init(resolve);
     });
-
-    await connection.Create();
-
-    return connection;
 });

@@ -3,47 +3,49 @@ import actions from '#actions/addon.js';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
-actions.Fn('item.run', async function(action, id, input = {})
+actions.Fn('item.run', function(action, id, input = {})
 {
-    const inputSchema = action.Get('input');
-
-    if(Object.keys(inputSchema).length > 0)
+    this.methods.init = async (resolve) =>
     {
-        input = divhunt.DataDefine(input, inputSchema);
-    }
+        this.resolve = resolve;
 
-    const token = await connections.Fn('token', id);
+        input = this.methods.validate(input, action.Get('input'));
+        const token = await connections.Fn('token', id);
+        const provider = this.methods.provider();
 
-    const provider = providers.ItemGet(action.Get('provider'));
+        await action.Get('execute')({ token, input, provider }, this.methods.done);
+    };
 
-    if(!provider)
+    this.methods.validate = (data, schema) =>
     {
-        throw divhunt.Error(404, 'Provider not found for action.');
-    }
-
-    const result = await new Promise(async (promiseResolve, promiseReject) =>
-    {
-        try
+        if(Object.keys(schema).length > 0)
         {
-            const resolve = (data) =>
-            {
-                const outputSchema = action.Get('output');
-
-                if(Object.keys(outputSchema).length > 0)
-                {
-                    data = divhunt.DataDefine(data, outputSchema);
-                }
-
-                promiseResolve(data);
-            };
-
-            await action.Get('execute')({ token, input, provider }, resolve);
+            return divhunt.DataDefine(data, schema);
         }
-        catch(error)
+
+        return data;
+    };
+
+    this.methods.provider = () =>
+    {
+        const provider = providers.ItemGet(action.Get('provider'));
+
+        if(!provider)
         {
-            promiseReject(error);
+            throw divhunt.Error(404, 'Provider not found for action.');
         }
+
+        return provider;
+    };
+
+    this.methods.done = (data) =>
+    {
+        data = this.methods.validate(data, action.Get('output'));
+        this.resolve(data);
+    };
+
+    return new Promise((resolve) =>
+    {
+        this.methods.init(resolve);
     });
-
-    return result;
 });
