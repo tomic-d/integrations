@@ -13,34 +13,34 @@ import './items/providers/google-calendar.js';
 import './items/providers/stripe.js';
 import './items/providers/calendly.js';
 
-/* Integrations - Slack */
-import './items/integrations/slack/send-message.js';
-import './items/integrations/slack/list-channels.js';
-import './items/integrations/slack/create-channel.js';
+/* Actions - Slack */
+import './items/actions/slack/send-message.js';
+import './items/actions/slack/list-channels.js';
+import './items/actions/slack/create-channel.js';
 
-/* Integrations - GitHub */
-import './items/integrations/github/create-issue.js';
-import './items/integrations/github/list-repos.js';
-import './items/integrations/github/create-pr.js';
+/* Actions - GitHub */
+import './items/actions/github/create-issue.js';
+import './items/actions/github/list-repos.js';
+import './items/actions/github/create-pr.js';
 
-/* Integrations - Google Gmail */
-import './items/integrations/google-gmail/send-email.js';
-import './items/integrations/google-gmail/list-emails.js';
-import './items/integrations/google-gmail/search-emails.js';
+/* Actions - Google Gmail */
+import './items/actions/google-gmail/send-email.js';
+import './items/actions/google-gmail/list-emails.js';
+import './items/actions/google-gmail/search-emails.js';
 
-/* Integrations - Google Calendar */
-import './items/integrations/google-calendar/create-event.js';
-import './items/integrations/google-calendar/list-events.js';
-import './items/integrations/google-calendar/delete-event.js';
+/* Actions - Google Calendar */
+import './items/actions/google-calendar/create-event.js';
+import './items/actions/google-calendar/list-events.js';
+import './items/actions/google-calendar/delete-event.js';
 
-/* Integrations - Stripe */
-import './items/integrations/stripe/create-customer.js';
-import './items/integrations/stripe/list-customers.js';
-import './items/integrations/stripe/create-charge.js';
+/* Actions - Stripe */
+import './items/actions/stripe/create-customer.js';
+import './items/actions/stripe/list-customers.js';
+import './items/actions/stripe/create-charge.js';
 
-/* Integrations - Calendly */
-import './items/integrations/calendly/list-events.js';
-import './items/integrations/calendly/list-event-types.js';
+/* Actions - Calendly */
+import './items/actions/calendly/list-events.js';
+import './items/actions/calendly/list-event-types.js';
 
 /* Database */
 import './items/database/primary.js';
