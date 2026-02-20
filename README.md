@@ -12,15 +12,92 @@ Three addons:
 
 ## Providers
 
-| Provider | Auth Type | Actions |
+| Provider | ID | Auth Type |
 |---|---|---|
-| Slack | oauth2 | send-message, list-channels, create-channel |
-| Discord | oauth2 | send-message, list-channels, list-guilds, read-messages |
-| GitHub | oauth2 | create-issue, list-repos, create-pr |
-| Google Gmail | oauth2 | send-email, list-emails, search-emails |
-| Google Calendar | oauth2 | create-event, list-events, delete-event |
-| Stripe | api_key | create-customer, list-customers, create-charge |
-| Calendly | api_key | list-events, list-event-types |
+| Slack | `slack` | oauth2 |
+| Discord | `discord` | oauth2 |
+| GitHub | `github` | oauth2 |
+| Google Gmail | `google:gmail` | oauth2 |
+| Google Calendar | `google:calendar` | oauth2 |
+| Stripe | `stripe` | api_key |
+| Calendly | `calendly` | api_key |
+| Webflow | `webflow` | oauth2 |
+
+## Actions
+
+Action IDs follow the pattern `provider:resource:action`.
+
+### Slack
+
+| Action ID | Description |
+|---|---|
+| `slack:messages:send` | Send a message to a channel |
+| `slack:channels:list` | List workspace channels |
+| `slack:channels:create` | Create a new channel |
+
+### Discord
+
+| Action ID | Description |
+|---|---|
+| `discord:messages:send` | Send a message to a channel |
+| `discord:messages:read` | Read message history |
+| `discord:channels:list` | List guild channels |
+| `discord:guilds:list` | List bot guilds |
+
+### GitHub
+
+| Action ID | Description |
+|---|---|
+| `github:issues:create` | Create a repository issue |
+| `github:repos:list` | List user repositories |
+| `github:pull-requests:create` | Create a pull request |
+
+### Google Gmail
+
+| Action ID | Description |
+|---|---|
+| `google:gmail:emails:send` | Send an email |
+| `google:gmail:emails:list` | List inbox emails |
+| `google:gmail:emails:search` | Search emails by query |
+
+### Google Calendar
+
+| Action ID | Description |
+|---|---|
+| `google:calendar:events:create` | Create a calendar event |
+| `google:calendar:events:list` | List upcoming events |
+| `google:calendar:events:delete` | Delete an event |
+
+### Stripe
+
+| Action ID | Description |
+|---|---|
+| `stripe:customers:create` | Create a customer |
+| `stripe:customers:list` | List customers |
+| `stripe:payments:create` | Create a payment intent |
+
+### Calendly
+
+| Action ID | Description |
+|---|---|
+| `calendly:events:list` | List scheduled events |
+| `calendly:event-types:list` | List event types |
+
+### Webflow
+
+| Action ID | Description |
+|---|---|
+| `webflow:sites:list` | List all sites |
+| `webflow:sites:publish` | Publish site to domains |
+| `webflow:pages:list` | List site pages |
+| `webflow:pages:update` | Update page title, slug, SEO |
+| `webflow:collections:list` | List CMS collections |
+| `webflow:collections:items:list` | List collection items |
+| `webflow:collections:items:get` | Get a single item |
+| `webflow:collections:items:create` | Create a collection item |
+| `webflow:collections:items:update` | Update a collection item |
+| `webflow:collections:items:delete` | Delete a collection item |
+| `webflow:collections:items:publish` | Publish staged items to live |
 
 ## Commands
 
@@ -38,7 +115,7 @@ Three addons:
 
 ## Connecting
 
-### OAuth2 (Slack, Discord, GitHub, Google)
+### OAuth2 (Slack, Discord, GitHub, Google, Webflow)
 
 ```
 POST /connections/create
@@ -69,7 +146,7 @@ Token is encrypted (AES-256-GCM) and stored. Never returned in any response.
 ```
 POST /actions/run
 {
-    "action_id": "slack:send-message",
+    "action_id": "slack:messages:send",
     "connection_id": "3",
     "input": { "channel": "C123", "text": "Hello" }
 }

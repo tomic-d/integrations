@@ -13,41 +13,55 @@ import './items/providers/google-calendar.js';
 import './items/providers/stripe.js';
 import './items/providers/calendly.js';
 import './items/providers/discord.js';
+import './items/providers/webflow.js';
 
 /* Actions - Slack */
-import './items/actions/slack/send-message.js';
-import './items/actions/slack/list-channels.js';
-import './items/actions/slack/create-channel.js';
-
-/* Actions - GitHub */
-import './items/actions/github/create-issue.js';
-import './items/actions/github/list-repos.js';
-import './items/actions/github/create-pr.js';
-
-/* Actions - Google Gmail */
-import './items/actions/google-gmail/send-email.js';
-import './items/actions/google-gmail/list-emails.js';
-import './items/actions/google-gmail/search-emails.js';
-
-/* Actions - Google Calendar */
-import './items/actions/google-calendar/create-event.js';
-import './items/actions/google-calendar/list-events.js';
-import './items/actions/google-calendar/delete-event.js';
-
-/* Actions - Stripe */
-import './items/actions/stripe/create-customer.js';
-import './items/actions/stripe/list-customers.js';
-import './items/actions/stripe/create-charge.js';
-
-/* Actions - Calendly */
-import './items/actions/calendly/list-events.js';
-import './items/actions/calendly/list-event-types.js';
+import './items/actions/slack/messages/send.js';
+import './items/actions/slack/channels/list.js';
+import './items/actions/slack/channels/create.js';
 
 /* Actions - Discord */
-import './items/actions/discord/send-message.js';
-import './items/actions/discord/list-channels.js';
-import './items/actions/discord/list-guilds.js';
-import './items/actions/discord/read-messages.js';
+import './items/actions/discord/messages/send.js';
+import './items/actions/discord/messages/read.js';
+import './items/actions/discord/channels/list.js';
+import './items/actions/discord/guilds/list.js';
+
+/* Actions - GitHub */
+import './items/actions/github/issues/create.js';
+import './items/actions/github/repos/list.js';
+import './items/actions/github/pull-requests/create.js';
+
+/* Actions - Google Gmail */
+import './items/actions/google/gmail/emails/send.js';
+import './items/actions/google/gmail/emails/list.js';
+import './items/actions/google/gmail/emails/search.js';
+
+/* Actions - Google Calendar */
+import './items/actions/google/calendar/events/create.js';
+import './items/actions/google/calendar/events/list.js';
+import './items/actions/google/calendar/events/delete.js';
+
+/* Actions - Stripe */
+import './items/actions/stripe/customers/create.js';
+import './items/actions/stripe/customers/list.js';
+import './items/actions/stripe/payments/create.js';
+
+/* Actions - Calendly */
+import './items/actions/calendly/events/list.js';
+import './items/actions/calendly/event-types/list.js';
+
+/* Actions - Webflow */
+import './items/actions/webflow/sites/list.js';
+import './items/actions/webflow/sites/publish.js';
+import './items/actions/webflow/pages/list.js';
+import './items/actions/webflow/pages/update.js';
+import './items/actions/webflow/collections/list.js';
+import './items/actions/webflow/collections/items/list.js';
+import './items/actions/webflow/collections/items/get.js';
+import './items/actions/webflow/collections/items/create.js';
+import './items/actions/webflow/collections/items/update.js';
+import './items/actions/webflow/collections/items/delete.js';
+import './items/actions/webflow/collections/items/publish.js';
 
 /* Database */
 import './items/database/primary.js';

@@ -1,7 +1,7 @@
 import providers from '#providers/addon.js';
 
 providers.Item({
-    id: 'google-gmail',
+    id: 'google:gmail',
     name: 'Google Gmail',
     slug: 'google-gmail',
     description: 'Email service by Google.',

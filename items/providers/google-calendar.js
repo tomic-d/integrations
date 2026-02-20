@@ -1,7 +1,7 @@
 import providers from '#providers/addon.js';
 
 providers.Item({
-    id: 'google-calendar',
+    id: 'google:calendar',
     name: 'Google Calendar',
     slug: 'google-calendar',
     description: 'Calendar and scheduling by Google.',
