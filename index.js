@@ -8,8 +8,8 @@ import '#actions/load.js';
 /* Providers */
 import './items/providers/slack.js';
 import './items/providers/github.js';
-import './items/providers/google-gmail.js';
-import './items/providers/google-calendar.js';
+import './items/providers/google/gmail.js';
+import './items/providers/google/calendar.js';
 import './items/providers/stripe.js';
 import './items/providers/calendly.js';
 import './items/providers/discord.js';
