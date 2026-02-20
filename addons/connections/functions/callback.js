@@ -52,37 +52,16 @@ connections.Fn('callback', async function(code, state)
     }
 
     const data = await response.json();
-
-    const credentials = {
-        access_token: data.access_token,
-        refresh_token: data.refresh_token || null,
-        token_type: data.token_type || 'Bearer'
-    };
-
-    const expiresAt = data.expires_in
-        ? new Date(Date.now() + data.expires_in * 1000).toISOString()
-        : null;
-
-    const metadata = {};
-
-    if(data.team)
-    {
-        metadata.team = data.team;
-    }
-
-    if(data.authed_user)
-    {
-        metadata.user = data.authed_user;
-    }
+    const parsed = provider.Get('callback')(data);
 
     const connection = connections.Item({
         team_id: teamId,
         provider_id: providerId,
         status: 'active',
-        credentials: connections.Fn('encrypt', credentials),
-        metadata,
-        scopes: data.scope || config.scopes || '',
-        expires_at: expiresAt
+        credentials: connections.Fn('encrypt', parsed.credentials),
+        metadata: parsed.metadata,
+        scopes: parsed.scopes || config.scopes || '',
+        expires_at: parsed.expires_at
     });
 
     await connection.Create();

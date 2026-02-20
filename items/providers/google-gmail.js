@@ -19,5 +19,20 @@ providers.Item({
         }
     },
     base_url: 'https://gmail.googleapis.com/gmail/v1',
+    callback: function(data)
+    {
+        return {
+            credentials: {
+                access_token: data.access_token,
+                refresh_token: data.refresh_token || null,
+                token_type: data.token_type || 'Bearer'
+            },
+            expires_at: data.expires_in
+                ? new Date(Date.now() + data.expires_in * 1000).toISOString()
+                : null,
+            scopes: data.scope || '',
+            metadata: {}
+        };
+    },
     status: 'active'
 });
