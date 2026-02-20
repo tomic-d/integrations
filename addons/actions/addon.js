@@ -3,7 +3,7 @@ import divhunt from 'divhunt';
 const actions = divhunt.Addon('actions', (addon) =>
 {
     addon.Field('id', ['string']);
-    addon.Field('provider_id', ['string']);
+    addon.Field('provider', ['string']);
     addon.Field('name', ['string']);
     addon.Field('description', ['string', '']);
     addon.Field('input', ['object', {}]);

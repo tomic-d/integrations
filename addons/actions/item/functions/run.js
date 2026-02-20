@@ -14,7 +14,7 @@ actions.Fn('item.run', async function(action, connectionId, input = {})
 
     const token = await connections.Fn('token', connectionId);
 
-    const provider = providers.ItemGet(action.Get('provider_id'));
+    const provider = providers.ItemGet(action.Get('provider'));
 
     if(!provider)
     {
@@ -24,7 +24,6 @@ actions.Fn('item.run', async function(action, connectionId, input = {})
     const result = await action.Get('execute')({
         token,
         input,
-        base_url: provider.Get('base_url'),
         provider
     });
 

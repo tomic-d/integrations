@@ -7,7 +7,7 @@ commands.Item({
     method: 'GET',
     endpoint: '/actions',
     in: {
-        provider_id: ['string']
+        provider: ['string']
     },
     out: {
         actions: {
@@ -21,13 +21,13 @@ commands.Item({
     {
         let items = Object.values(actions.Items());
 
-        if(properties.provider_id)
+        if(properties.provider)
         {
-            items = items.filter(item => item.Get('provider_id') === properties.provider_id);
+            items = items.filter(item => item.Get('provider') === properties.provider);
         }
 
         resolve({
-            actions: items.map(item => item.Get(['id', 'provider_id', 'name', 'description', 'input', 'output']))
+            actions: items.map(item => item.Get(['id', 'provider', 'name', 'description', 'input', 'output']))
         });
     }
 });
