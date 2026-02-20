@@ -10,10 +10,10 @@ import '#connections/functions/revoke.js';
 import '#connections/functions/callback.js';
 
 /* Commands */
-import '#connections/items/commands/create.js';
+import '#connections/items/commands/link.js';
 import '#connections/items/commands/get.one.js';
 import '#connections/items/commands/get.many.js';
-import '#connections/items/commands/delete.js';
+import '#connections/items/commands/unlink.js';
 import '#connections/items/commands/status.js';
 
 /* Schema */

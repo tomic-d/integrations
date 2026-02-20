@@ -5,10 +5,10 @@ import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
 commands.Item({
-    id: 'connections:create',
+    id: 'connections:link',
     exposed: true,
     method: 'POST',
-    endpoint: '/connections/create',
+    endpoint: '/connections/link',
     in: {
         team_id: ['string', null, true],
         provider_id: ['string', null, true],

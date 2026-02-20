@@ -104,10 +104,10 @@ Action IDs follow the pattern `provider:resource:action`.
 | Command | Method | Endpoint | Description |
 |---|---|---|---|
 | `providers:list` | GET | /providers | List all providers |
-| `connections:create` | POST | /connections/create | Start OAuth flow or save API key |
+| `connections:link` | POST | /connections/link | Start OAuth flow or save API key |
 | `connections:get:many` | GET | /connections | List connections (filterable) |
 | `connections:get:one` | GET | /connections/one | Get single connection |
-| `connections:delete` | POST | /connections/delete | Revoke and soft-delete |
+| `connections:unlink` | POST | /connections/unlink | Revoke and soft-delete |
 | `connections:status` | — | — | Check connection health |
 | `actions:list` | GET | /actions | List actions (filterable by provider) |
 | `actions:run` | POST | /actions/run | Execute an action |
@@ -118,7 +118,7 @@ Action IDs follow the pattern `provider:resource:action`.
 ### OAuth2 (Slack, Discord, GitHub, Google, Webflow)
 
 ```
-POST /connections/create
+POST /connections/link
 { "team_id": "123", "provider_id": "slack" }
 
 → { "authorize_url": "https://slack.com/oauth/v2/authorize?..." }
@@ -129,7 +129,7 @@ Redirect user to `authorize_url`. After authorization, the OAuth callback (`/oau
 ### API Key (Stripe, Calendly)
 
 ```
-POST /connections/create
+POST /connections/link
 {
     "team_id": "123",
     "provider_id": "stripe",

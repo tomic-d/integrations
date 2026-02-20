@@ -2,10 +2,10 @@ import commands from 'divhunt/commands';
 import connections from '#connections/addon.js';
 
 commands.Item({
-    id: 'connections:delete',
+    id: 'connections:unlink',
     exposed: true,
     method: 'POST',
-    endpoint: '/connections/delete',
+    endpoint: '/connections/unlink',
     in: {
         id: ['string', null, true]
     },
