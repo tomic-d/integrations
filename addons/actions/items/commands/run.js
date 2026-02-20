@@ -7,8 +7,8 @@ commands.Item({
     method: 'POST',
     endpoint: '/actions/run',
     in: {
-        action_id: ['string', null, true],
-        connection_id: ['string', null, true],
+        action: ['string', null, true],
+        connection: ['string', null, true],
         input: ['object', {}]
     },
     out: {
@@ -16,14 +16,14 @@ commands.Item({
     },
     callback: async function(properties, resolve)
     {
-        const action = actions.ItemGet(properties.action_id);
+        const action = actions.ItemGet(properties.action);
 
         if(!action)
         {
             return resolve(null, 'Action not found.', 404);
         }
 
-        const result = await action.Fn('run', properties.connection_id, properties.input);
+        const result = await action.Fn('run', properties.connection, properties.input);
 
         resolve({ result });
     }

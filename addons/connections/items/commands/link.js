@@ -10,8 +10,8 @@ commands.Item({
     method: 'POST',
     endpoint: '/connections/link',
     in: {
-        team_id: ['string', null, true],
-        provider_id: ['string', null, true],
+        team: ['string', null, true],
+        provider: ['string', null, true],
         credentials: ['object']
     },
     out: {
@@ -23,7 +23,7 @@ commands.Item({
     },
     callback: async function(properties, resolve)
     {
-        const provider = providers.ItemGet(properties.provider_id);
+        const provider = providers.ItemGet(properties.provider);
 
         if(!provider)
         {
@@ -36,7 +36,7 @@ commands.Item({
         {
             const oauth2 = provider.Get('oauth2');
             const nonce = crypto.randomBytes(16).toString('hex');
-            const state = properties.provider_id + ':' + properties.team_id + ':' + nonce;
+            const state = properties.provider + ':' + properties.team + ':' + nonce;
 
             const params = new URLSearchParams({
                 client_id: process.env[oauth2.client_id_env],
@@ -67,8 +67,8 @@ commands.Item({
             }
 
             const connection = connections.Item({
-                team_id: properties.team_id,
-                provider_id: properties.provider_id,
+                team_id: properties.team,
+                provider_id: properties.provider,
                 status: 'active',
                 credentials: connections.Fn('encrypt', properties.credentials),
                 metadata: {},

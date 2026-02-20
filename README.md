@@ -119,7 +119,7 @@ Action IDs follow the pattern `provider:resource:action`.
 
 ```
 POST /connections/link
-{ "team_id": "123", "provider_id": "slack" }
+{ "team": "123", "provider": "slack" }
 
 → { "authorize_url": "https://slack.com/oauth/v2/authorize?..." }
 ```
@@ -131,8 +131,8 @@ Redirect user to `authorize_url`. After authorization, the OAuth callback (`/oau
 ```
 POST /connections/link
 {
-    "team_id": "123",
-    "provider_id": "stripe",
+    "team": "123",
+    "provider": "stripe",
     "credentials": { "token": "sk_live_xxx" }
 }
 
@@ -146,8 +146,8 @@ Token is encrypted (AES-256-GCM) and stored. Never returned in any response.
 ```
 POST /actions/run
 {
-    "action_id": "slack:messages:send",
-    "connection_id": "3",
+    "action": "slack:messages:send",
+    "connection": "3",
     "input": { "channel": "C123", "text": "Hello" }
 }
 
