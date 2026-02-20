@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'github:create-issue',
-    provider_id: 'github',
+    provider: 'github',
     name: 'Create Issue',
     description: 'Create a new issue in a GitHub repository.',
     input: {
@@ -16,9 +17,9 @@ actions.Item({
         number: { type: 'number' },
         url: { type: 'string' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
-        const response = await fetch(base_url + '/repos/' + input.owner + '/' + input.repo + '/issues', {
+        const response = await fetch(provider.Get('base_url') + '/repos/' + input.owner + '/' + input.repo + '/issues', {
             method: 'POST',
             headers: {
                 'Accept': 'application/vnd.github+json',
@@ -35,7 +36,7 @@ actions.Item({
         if(!response.ok)
         {
             const error = await response.text();
-            throw new Error('GitHub error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         const data = await response.json();

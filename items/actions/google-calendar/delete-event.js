@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'google-calendar:delete-event',
-    provider_id: 'google-calendar',
+    provider: 'google-calendar',
     name: 'Delete Event',
     description: 'Delete an event from Google Calendar.',
     input: {
@@ -12,9 +13,9 @@ actions.Item({
     output: {
         deleted: { type: 'boolean' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
-        const response = await fetch(base_url + '/calendars/' + input.calendar_id + '/events/' + input.event_id, {
+        const response = await fetch(provider.Get('base_url') + '/calendars/' + input.calendar_id + '/events/' + input.event_id, {
             method: 'DELETE',
             headers: { 'Authorization': 'Bearer ' + token }
         });
@@ -22,7 +23,7 @@ actions.Item({
         if(!response.ok && response.status !== 204)
         {
             const error = await response.text();
-            throw new Error('Google Calendar error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         return { deleted: true };

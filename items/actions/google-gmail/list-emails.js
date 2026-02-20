@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'google-gmail:list-emails',
-    provider_id: 'google-gmail',
+    provider: 'google-gmail',
     name: 'List Emails',
     description: 'List emails from Gmail inbox.',
     input: {
@@ -12,21 +13,21 @@ actions.Item({
     output: {
         messages: { type: 'array' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
         const params = new URLSearchParams({
             maxResults: input.max_results,
             labelIds: input.label
         });
 
-        const response = await fetch(base_url + '/users/me/messages?' + params, {
+        const response = await fetch(provider.Get('base_url') + '/users/me/messages?' + params, {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
         if(!response.ok)
         {
             const error = await response.text();
-            throw new Error('Gmail error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         const data = await response.json();
@@ -38,22 +39,22 @@ actions.Item({
 
         const messages = [];
 
-        for(const msg of data.messages.slice(0, input.max_results))
+        for(const message of data.messages.slice(0, input.max_results))
         {
-            const detail = await fetch(base_url + '/users/me/messages/' + msg.id + '?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date', {
+            const detail = await fetch(provider.Get('base_url') + '/users/me/messages/' + message.id + '?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date', {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
 
-            const d = await detail.json();
-            const headers = d.payload?.headers || [];
+            const result = await detail.json();
+            const headers = result.payload?.headers || [];
 
             messages.push({
-                id: d.id,
-                thread_id: d.threadId,
-                subject: headers.find(h => h.name === 'Subject')?.value || '',
-                from: headers.find(h => h.name === 'From')?.value || '',
-                date: headers.find(h => h.name === 'Date')?.value || '',
-                snippet: d.snippet || ''
+                id: result.id,
+                thread_id: result.threadId,
+                subject: headers.find(header => header.name === 'Subject')?.value || '',
+                from: headers.find(header => header.name === 'From')?.value || '',
+                date: headers.find(header => header.name === 'Date')?.value || '',
+                snippet: result.snippet || ''
             });
         }
 

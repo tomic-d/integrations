@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'slack:send-message',
-    provider_id: 'slack',
+    provider: 'slack',
     name: 'Send Message',
     description: 'Send a message to a Slack channel.',
     input: {
@@ -13,9 +14,9 @@ actions.Item({
         ok: { type: 'boolean' },
         ts: { type: 'string' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
-        const response = await fetch(base_url + '/chat.postMessage', {
+        const response = await fetch(provider.Get('base_url') + '/chat.postMessage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ actions.Item({
 
         if(!data.ok)
         {
-            throw new Error('Slack error: ' + (data.error || 'Unknown'));
+            throw divhunt.Error(502, data.error || 'Unknown Slack error.');
         }
 
         return { ok: data.ok, ts: data.ts };

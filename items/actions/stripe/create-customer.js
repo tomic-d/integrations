@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'stripe:create-customer',
-    provider_id: 'stripe',
+    provider: 'stripe',
     name: 'Create Customer',
     description: 'Create a new Stripe customer.',
     input: {
@@ -13,7 +14,7 @@ actions.Item({
         id: { type: 'string' },
         email: { type: 'string' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
         const body = new URLSearchParams({ email: input.email });
 
@@ -22,7 +23,7 @@ actions.Item({
             body.set('name', input.name);
         }
 
-        const response = await fetch(base_url + '/customers', {
+        const response = await fetch(provider.Get('base_url') + '/customers', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -34,7 +35,7 @@ actions.Item({
         if(!response.ok)
         {
             const error = await response.text();
-            throw new Error('Stripe error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         const data = await response.json();

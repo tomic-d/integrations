@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'google-gmail:send-email',
-    provider_id: 'google-gmail',
+    provider: 'google-gmail',
     name: 'Send Email',
     description: 'Send an email via Gmail.',
     input: {
@@ -14,7 +15,7 @@ actions.Item({
         id: { type: 'string' },
         thread_id: { type: 'string' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
         const message = [
             'To: ' + input.to,
@@ -30,7 +31,7 @@ actions.Item({
             .replace(/\//g, '_')
             .replace(/=+$/, '');
 
-        const response = await fetch(base_url + '/users/me/messages/send', {
+        const response = await fetch(provider.Get('base_url') + '/users/me/messages/send', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -42,7 +43,7 @@ actions.Item({
         if(!response.ok)
         {
             const error = await response.text();
-            throw new Error('Gmail error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         const data = await response.json();

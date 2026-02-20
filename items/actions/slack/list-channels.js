@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'slack:list-channels',
-    provider_id: 'slack',
+    provider: 'slack',
     name: 'List Channels',
     description: 'List all channels in a Slack workspace.',
     input: {
@@ -11,11 +12,11 @@ actions.Item({
     output: {
         channels: { type: 'array' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
         const params = new URLSearchParams({ limit: input.limit });
 
-        const response = await fetch(base_url + '/conversations.list?' + params, {
+        const response = await fetch(provider.Get('base_url') + '/conversations.list?' + params, {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
@@ -23,15 +24,15 @@ actions.Item({
 
         if(!data.ok)
         {
-            throw new Error('Slack error: ' + (data.error || 'Unknown'));
+            throw divhunt.Error(502, data.error || 'Unknown Slack error.');
         }
 
         return {
-            channels: data.channels.map(c => ({
-                id: c.id,
-                name: c.name,
-                topic: c.topic?.value || '',
-                members: c.num_members
+            channels: data.channels.map(channel => ({
+                id: channel.id,
+                name: channel.name,
+                topic: channel.topic?.value || '',
+                members: channel.num_members
             }))
         };
     }

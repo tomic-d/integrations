@@ -1,8 +1,9 @@
+import divhunt from 'divhunt';
 import actions from '#actions/addon.js';
 
 actions.Item({
     id: 'github:list-repos',
-    provider_id: 'github',
+    provider: 'github',
     name: 'List Repositories',
     description: 'List repositories for the authenticated user.',
     input: {
@@ -12,14 +13,14 @@ actions.Item({
     output: {
         repos: { type: 'array' }
     },
-    execute: async function({ token, input, base_url })
+    execute: async function({ token, input, provider })
     {
         const params = new URLSearchParams({
             sort: input.sort,
             per_page: input.per_page
         });
 
-        const response = await fetch(base_url + '/user/repos?' + params, {
+        const response = await fetch(provider.Get('base_url') + '/user/repos?' + params, {
             headers: {
                 'Accept': 'application/vnd.github+json',
                 'Authorization': 'Bearer ' + token
@@ -29,19 +30,19 @@ actions.Item({
         if(!response.ok)
         {
             const error = await response.text();
-            throw new Error('GitHub error: ' + error);
+            throw divhunt.Error(502, error);
         }
 
         const data = await response.json();
 
         return {
-            repos: data.map(r => ({
-                id: r.id,
-                name: r.name,
-                full_name: r.full_name,
-                private: r.private,
-                url: r.html_url,
-                description: r.description || ''
+            repos: data.map(repo => ({
+                id: repo.id,
+                name: repo.name,
+                full_name: repo.full_name,
+                private: repo.private,
+                url: repo.html_url,
+                description: repo.description || ''
             }))
         };
     }
