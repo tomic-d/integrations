@@ -3,7 +3,7 @@ import actions from '#actions/addon.js';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
-actions.Fn('item.run', async function(action, connectionId, input = {})
+actions.Fn('item.run', async function(action, id, input = {})
 {
     const inputSchema = action.Get('input');
 
@@ -12,7 +12,7 @@ actions.Fn('item.run', async function(action, connectionId, input = {})
         input = divhunt.DataDefine(input, inputSchema);
     }
 
-    const token = await connections.Fn('token', connectionId);
+    const token = await connections.Fn('token', id);
 
     const provider = providers.ItemGet(action.Get('provider'));
 

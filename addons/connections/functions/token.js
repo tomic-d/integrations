@@ -2,9 +2,9 @@ import divhunt from 'divhunt';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
-connections.Fn('token', async function(connectionId)
+connections.Fn('token', async function(id)
 {
-    const connection = await connections.Find().filter('id', connectionId).one();
+    const connection = await connections.Find().filter('id', id).one();
 
     if(!connection)
     {

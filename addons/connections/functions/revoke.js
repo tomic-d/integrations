@@ -1,9 +1,9 @@
 import divhunt from 'divhunt';
 import connections from '#connections/addon.js';
 
-connections.Fn('revoke', async function(connectionId)
+connections.Fn('revoke', async function(id)
 {
-    const connection = await connections.Find().filter('id', connectionId).one();
+    const connection = await connections.Find().filter('id', id).one();
 
     if(!connection)
     {
