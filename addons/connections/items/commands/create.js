@@ -7,6 +7,8 @@ import providers from '#providers/addon.js';
 commands.Item({
     id: 'connections:create',
     exposed: true,
+    method: 'POST',
+    endpoint: '/connections/create',
     in: {
         team_id: ['string', null, true],
         provider_id: ['string', null, true],
