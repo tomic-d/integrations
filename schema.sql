@@ -14,3 +14,7 @@ CREATE TABLE IF NOT EXISTS connections (
     created_at VARCHAR(255),
     deleted_at VARCHAR(255)
 );
+
+CREATE INDEX idx_connections_team_id ON connections(team_id);
+CREATE INDEX idx_connections_provider_id ON connections(provider_id);
+CREATE INDEX idx_connections_team_provider ON connections(team_id, provider_id);
