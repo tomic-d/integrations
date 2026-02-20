@@ -15,6 +15,6 @@
     "#actions/*": "./addons/actions/*"
   },
   "dependencies": {
-    "divhunt": "^2.0.1"
+    "divhunt": "^2.0.2"
   }
 }
