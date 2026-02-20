@@ -4,8 +4,6 @@ import connections from '#connections/addon.js';
 commands.Item({
     id: 'connections:get:many',
     exposed: true,
-    method: 'GET',
-    endpoint: '/connections',
     in: 'query',
     out: {
         connections: {

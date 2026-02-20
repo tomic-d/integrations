@@ -4,8 +4,6 @@ import connections from '#connections/addon.js';
 commands.Item({
     id: 'connections:unlink',
     exposed: true,
-    method: 'POST',
-    endpoint: '/connections/unlink',
     in: {
         id: ['string', null, true]
     },

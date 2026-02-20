@@ -4,8 +4,6 @@ import actions from '#actions/addon.js';
 commands.Item({
     id: 'actions:run',
     exposed: true,
-    method: 'POST',
-    endpoint: '/actions/run',
     in: {
         action: ['string', null, true],
         connection: ['string', null, true],

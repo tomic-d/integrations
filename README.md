@@ -101,17 +101,19 @@ Action IDs follow the pattern `provider:resource:action`.
 
 ## Commands
 
-| Command | Method | Endpoint | Description |
-|---|---|---|---|
-| `providers:list` | GET | /providers | List all providers |
-| `connections:link` | POST | /connections/link | Start OAuth flow or save API key |
-| `connections:get:many` | GET | /connections | List connections (filterable) |
-| `connections:get:one` | GET | /connections/one | Get single connection |
-| `connections:unlink` | POST | /connections/unlink | Revoke and soft-delete |
-| `connections:status` | — | — | Check connection health |
-| `actions:list` | GET | /actions | List actions (filterable by provider) |
-| `actions:run` | POST | /actions/run | Execute an action |
-| `health` | — | — | Uptime check |
+| Command | Description |
+|---|---|
+| `health` | Uptime check |
+| `providers:list` | List all providers |
+| `connections:link` | Start OAuth flow or save API key |
+| `connections:get:one` | Get single connection |
+| `connections:get:many` | List connections (filterable) |
+| `connections:unlink` | Revoke and soft-delete |
+| `connections:status` | Check connection health |
+| `actions:list` | List actions (filterable by provider) |
+| `actions:run` | Execute an action |
+
+All commands are gRPC-only (`exposed: true`). The only HTTP endpoint is `GET /oauth/callback` for OAuth2 browser redirects.
 
 ## Connecting
 

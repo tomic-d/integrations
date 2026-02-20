@@ -3,8 +3,6 @@ import commands from 'divhunt/commands';
 commands.Item({
     id: 'health',
     exposed: true,
-    method: 'GET',
-    endpoint: '/health',
     out: {
         uptime: ['number', null, true]
     },

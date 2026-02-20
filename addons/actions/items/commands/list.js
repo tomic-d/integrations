@@ -4,8 +4,6 @@ import actions from '#actions/addon.js';
 commands.Item({
     id: 'actions:list',
     exposed: true,
-    method: 'GET',
-    endpoint: '/actions',
     in: {
         provider: ['string']
     },

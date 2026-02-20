@@ -4,8 +4,6 @@ import providers from '#providers/addon.js';
 commands.Item({
     id: 'providers:list',
     exposed: true,
-    method: 'GET',
-    endpoint: '/providers',
     out: {
         providers: {
             type: 'array',
