@@ -30,11 +30,6 @@ commands.Item({
             return resolve(null, 'Provider not found.', 404);
         }
 
-        if(provider.Get('status') !== 'active')
-        {
-            return resolve(null, 'Provider is not active.', 400);
-        }
-
         const authType = provider.Get('auth_type');
 
         if(authType === 'oauth2')
