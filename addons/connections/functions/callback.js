@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import divhunt from 'divhunt';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
@@ -11,6 +13,7 @@ connections.Fn('callback', function(code, state)
         const { providerId, teamId } = this.methods.parse(state);
         const provider = this.methods.provider(providerId);
         const data = await this.methods.exchange(code, provider);
+        this.methods.debug(providerId, data);
         const parsed = provider.Get('callback')(data);
         const connection = await this.methods.save(teamId, providerId, provider, parsed);
 
@@ -90,6 +93,13 @@ connections.Fn('callback', function(code, state)
         await connection.Create();
 
         return connection;
+    };
+
+    this.methods.debug = (providerId, data) =>
+    {
+        const dir = path.resolve('debug/providers');
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, providerId + '.json'), JSON.stringify(data, null, 4));
     };
 
     return new Promise((resolve) =>
