@@ -4,6 +4,8 @@ import connections from '#connections/addon.js';
 commands.Item({
     id: 'connections:delete',
     exposed: true,
+    method: 'POST',
+    endpoint: '/connections/delete',
     in: {
         id: ['string', null, true]
     },

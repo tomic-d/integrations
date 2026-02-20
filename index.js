@@ -12,6 +12,7 @@ import './items/providers/google-gmail.js';
 import './items/providers/google-calendar.js';
 import './items/providers/stripe.js';
 import './items/providers/calendly.js';
+import './items/providers/discord.js';
 
 /* Actions - Slack */
 import './items/actions/slack/send-message.js';
@@ -41,6 +42,12 @@ import './items/actions/stripe/create-charge.js';
 /* Actions - Calendly */
 import './items/actions/calendly/list-events.js';
 import './items/actions/calendly/list-event-types.js';
+
+/* Actions - Discord */
+import './items/actions/discord/send-message.js';
+import './items/actions/discord/list-channels.js';
+import './items/actions/discord/list-guilds.js';
+import './items/actions/discord/read-messages.js';
 
 /* Database */
 import './items/database/primary.js';

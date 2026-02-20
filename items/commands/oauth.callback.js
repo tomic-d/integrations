@@ -11,12 +11,17 @@ commands.Item({
         state: ['string', null, true]
     },
     out: {
-        success: ['boolean', null, true]
+        connection: {
+            type: 'object',
+            config: 'connection'
+        }
     },
     callback: async function(properties, resolve)
     {
-        await connections.Fn('callback', properties.code, properties.state);
+        const connection = await connections.Fn('callback', properties.code, properties.state);
 
-        resolve({ success: true });
+        resolve({
+            connection: connection.Get(['id', 'team_id', 'provider_id', 'status', 'metadata', 'scopes', 'expires_at', 'updated_at', 'created_at'])
+        });
     }
 });

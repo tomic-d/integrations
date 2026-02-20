@@ -4,6 +4,8 @@ import connections from '#connections/addon.js';
 commands.Item({
     id: 'connections:get:one',
     exposed: true,
+    method: 'GET',
+    endpoint: '/connections/one',
     in: {
         id: ['string'],
         filters: {
