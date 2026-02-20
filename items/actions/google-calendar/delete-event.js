@@ -13,7 +13,7 @@ actions.Item({
     output: {
         deleted: { type: 'boolean' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/calendars/' + input.calendar_id + '/events/' + input.event_id, {
             method: 'DELETE',
@@ -26,6 +26,6 @@ actions.Item({
             throw divhunt.Error(502, error);
         }
 
-        return { deleted: true };
+        resolve({ deleted: true });
     }
 });

@@ -12,7 +12,7 @@ actions.Item({
     output: {
         channels: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const params = new URLSearchParams({ limit: input.limit });
 
@@ -27,13 +27,13 @@ actions.Item({
             throw divhunt.Error(502, data.error || 'Unknown Slack error.');
         }
 
-        return {
+        resolve({
             channels: data.channels.map(channel => ({
                 id: channel.id,
                 name: channel.name,
                 topic: channel.topic?.value || '',
                 members: channel.num_members
             }))
-        };
+        });
     }
 });

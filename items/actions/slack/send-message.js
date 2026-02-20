@@ -14,7 +14,7 @@ actions.Item({
         ok: { type: 'boolean' },
         ts: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/chat.postMessage', {
             method: 'POST',
@@ -35,6 +35,6 @@ actions.Item({
             throw divhunt.Error(502, data.error || 'Unknown Slack error.');
         }
 
-        return { ok: data.ok, ts: data.ts };
+        resolve({ ok: data.ok, ts: data.ts });
     }
 });

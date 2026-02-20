@@ -18,7 +18,7 @@ actions.Item({
         id: { type: 'string' },
         url: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/calendars/' + input.calendar_id + '/events', {
             method: 'POST',
@@ -43,6 +43,6 @@ actions.Item({
 
         const data = await response.json();
 
-        return { id: data.id, url: data.htmlLink };
+        resolve({ id: data.id, url: data.htmlLink });
     }
 });

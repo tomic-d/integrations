@@ -21,18 +21,29 @@ actions.Fn('item.run', async function(action, connectionId, input = {})
         throw divhunt.Error(404, 'Provider not found for action.');
     }
 
-    const result = await action.Get('execute')({
-        token,
-        input,
-        provider
-    });
-
-    const outputSchema = action.Get('output');
-
-    if(Object.keys(outputSchema).length > 0)
+    const result = await new Promise(async (promiseResolve, promiseReject) =>
     {
-        return divhunt.DataDefine(result, outputSchema);
-    }
+        try
+        {
+            const resolve = (data) =>
+            {
+                const outputSchema = action.Get('output');
+
+                if(Object.keys(outputSchema).length > 0)
+                {
+                    data = divhunt.DataDefine(data, outputSchema);
+                }
+
+                promiseResolve(data);
+            };
+
+            await action.Get('execute')({ token, input, provider }, resolve);
+        }
+        catch(error)
+        {
+            promiseReject(error);
+        }
+    });
 
     return result;
 });

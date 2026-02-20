@@ -12,7 +12,7 @@ actions.Item({
     output: {
         customers: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const params = new URLSearchParams({ limit: input.limit });
 
@@ -28,13 +28,13 @@ actions.Item({
 
         const data = await response.json();
 
-        return {
+        resolve({
             customers: data.data.map(customer => ({
                 id: customer.id,
                 email: customer.email || '',
                 name: customer.name || '',
                 created: customer.created
             }))
-        };
+        });
     }
 });

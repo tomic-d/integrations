@@ -13,7 +13,7 @@ actions.Item({
     output: {
         messages: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const params = new URLSearchParams({
             maxResults: input.max_results,
@@ -34,7 +34,7 @@ actions.Item({
 
         if(!data.messages || data.messages.length === 0)
         {
-            return { messages: [] };
+            return resolve({ messages: [] });
         }
 
         const messages = [];
@@ -58,6 +58,6 @@ actions.Item({
             });
         }
 
-        return { messages };
+        resolve({ messages });
     }
 });

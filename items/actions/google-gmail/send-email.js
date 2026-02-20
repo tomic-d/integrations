@@ -15,7 +15,7 @@ actions.Item({
         id: { type: 'string' },
         thread_id: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const message = [
             'To: ' + input.to,
@@ -48,6 +48,6 @@ actions.Item({
 
         const data = await response.json();
 
-        return { id: data.id, thread_id: data.threadId };
+        resolve({ id: data.id, thread_id: data.threadId });
     }
 });

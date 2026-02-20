@@ -12,7 +12,7 @@ actions.Item({
     output: {
         event_types: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/users/me', {
             headers: { 'Authorization': 'Bearer ' + token }
@@ -43,7 +43,7 @@ actions.Item({
 
         const data = await result.json();
 
-        return {
+        resolve({
             event_types: data.collection.map(type => ({
                 uri: type.uri,
                 name: type.name,
@@ -52,6 +52,6 @@ actions.Item({
                 active: type.active,
                 scheduling_url: type.scheduling_url
             }))
-        };
+        });
     }
 });

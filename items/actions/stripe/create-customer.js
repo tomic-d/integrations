@@ -14,7 +14,7 @@ actions.Item({
         id: { type: 'string' },
         email: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const body = new URLSearchParams({ email: input.email });
 
@@ -40,6 +40,6 @@ actions.Item({
 
         const data = await response.json();
 
-        return { id: data.id, email: data.email };
+        resolve({ id: data.id, email: data.email });
     }
 });

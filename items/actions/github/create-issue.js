@@ -17,7 +17,7 @@ actions.Item({
         number: { type: 'number' },
         url: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/repos/' + input.owner + '/' + input.repo + '/issues', {
             method: 'POST',
@@ -41,6 +41,6 @@ actions.Item({
 
         const data = await response.json();
 
-        return { number: data.number, url: data.html_url };
+        resolve({ number: data.number, url: data.html_url });
     }
 });

@@ -14,7 +14,7 @@ actions.Item({
     output: {
         events: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const params = new URLSearchParams({
             maxResults: input.max_results,
@@ -43,7 +43,7 @@ actions.Item({
 
         const data = await response.json();
 
-        return {
+        resolve({
             events: (data.items || []).map(event => ({
                 id: event.id,
                 summary: event.summary || '',
@@ -52,6 +52,6 @@ actions.Item({
                 location: event.location || '',
                 url: event.htmlLink || ''
             }))
-        };
+        });
     }
 });

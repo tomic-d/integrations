@@ -14,7 +14,7 @@ actions.Item({
         id: { type: 'string' },
         name: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const response = await fetch(provider.Get('base_url') + '/conversations.create', {
             method: 'POST',
@@ -35,6 +35,6 @@ actions.Item({
             throw divhunt.Error(502, data.error || 'Unknown Slack error.');
         }
 
-        return { id: data.channel.id, name: data.channel.name };
+        resolve({ id: data.channel.id, name: data.channel.name });
     }
 });

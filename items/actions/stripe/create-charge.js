@@ -17,7 +17,7 @@ actions.Item({
         status: { type: 'string' },
         client_secret: { type: 'string' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const body = new URLSearchParams({
             amount: input.amount,
@@ -51,6 +51,6 @@ actions.Item({
 
         const data = await response.json();
 
-        return { id: data.id, status: data.status, client_secret: data.client_secret };
+        resolve({ id: data.id, status: data.status, client_secret: data.client_secret });
     }
 });

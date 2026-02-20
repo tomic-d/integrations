@@ -13,7 +13,7 @@ actions.Item({
     output: {
         repos: { type: 'array' }
     },
-    execute: async function({ token, input, provider })
+    execute: async function({ token, input, provider }, resolve)
     {
         const params = new URLSearchParams({
             sort: input.sort,
@@ -35,7 +35,7 @@ actions.Item({
 
         const data = await response.json();
 
-        return {
+        resolve({
             repos: data.map(repo => ({
                 id: repo.id,
                 name: repo.name,
@@ -44,6 +44,6 @@ actions.Item({
                 url: repo.html_url,
                 description: repo.description || ''
             }))
-        };
+        });
     }
 });
