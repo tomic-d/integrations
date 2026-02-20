@@ -8,7 +8,8 @@ const providers = divhunt.Addon('providers', (addon) =>
     addon.Field('description', ['string', '']);
     addon.Field('icon', ['string', '']);
     addon.Field('auth', {
-        type: 'string',
+        type: 'object',
+        value: {},
         config: {
             type: ['string', 'oauth2'],
             config: ['object', {}]

@@ -84,7 +84,11 @@ connections.Fn('callback', function(code, state)
             team_id: teamId,
             provider_id: providerId,
             status: 'active',
-            credentials: connections.Fn('encrypt', parsed.credentials),
+            credentials: connections.Fn('encrypt', {
+                access_token: parsed.access_token,
+                refresh_token: parsed.refresh_token,
+                token_type: parsed.token_type
+            }),
             metadata: parsed.metadata,
             scopes: parsed.scopes || config.scopes || '',
             expires_at: parsed.expires_at
