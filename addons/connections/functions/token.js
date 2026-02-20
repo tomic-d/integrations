@@ -11,9 +11,9 @@ connections.Fn('token', function(id)
         const connection = await this.methods.connection(id);
         const provider = this.methods.provider(connection);
         const credentials = connections.Fn('decrypt', connection.Get('credentials'));
-        const authType = provider.Get('auth').type;
+        const authType = provider.Get('auth_type');
 
-        if(authType === 'api_key' || authType === 'pat')
+        if(authType === 'api_key')
         {
             return this.resolve(credentials.token);
         }

@@ -6,15 +6,13 @@ providers.Item({
     slug: 'slack',
     description: 'Team messaging and collaboration platform.',
     icon: 'slack',
-    auth: {
-        type: 'oauth2',
-        config: {
-            authorize_url: 'https://slack.com/oauth/v2/authorize',
-            token_url: 'https://slack.com/api/oauth.v2.access',
-            scopes: 'chat:write,channels:read,channels:manage',
-            client_id_env: 'SLACK_CLIENT_ID',
-            client_secret_env: 'SLACK_CLIENT_SECRET'
-        }
+    auth_type: 'oauth2',
+    oauth2: {
+        authorize_url: 'https://slack.com/oauth/v2/authorize',
+        token_url: 'https://slack.com/api/oauth.v2.access',
+        scopes: 'chat:write,channels:read,channels:manage',
+        client_id_env: 'SLACK_CLIENT_ID',
+        client_secret_env: 'SLACK_CLIENT_SECRET'
     },
     base_url: 'https://slack.com/api',
     callback: function(data)

@@ -6,12 +6,10 @@ providers.Item({
     slug: 'stripe',
     description: 'Payment processing platform.',
     icon: 'stripe',
-    auth: {
-        type: 'api_key',
-        config: {
-            header_name: 'Authorization',
-            header_prefix: 'Bearer'
-        }
+    auth_type: 'api_key',
+    api_key: {
+        header_name: 'Authorization',
+        header_prefix: 'Bearer'
     },
     base_url: 'https://api.stripe.com/v1',
     status: 'active'

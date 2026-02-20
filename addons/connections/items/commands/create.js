@@ -35,37 +35,36 @@ commands.Item({
             return resolve(null, 'Provider is not active.', 400);
         }
 
-        const auth = provider.Get('auth');
-        const authType = auth.type;
-        const config = auth.config;
+        const authType = provider.Get('auth_type');
 
         if(authType === 'oauth2')
         {
+            const oauth2 = provider.Get('oauth2');
             const nonce = crypto.randomBytes(16).toString('hex');
             const state = properties.provider_id + ':' + properties.team_id + ':' + nonce;
 
             const params = new URLSearchParams({
-                client_id: process.env[config.client_id_env],
+                client_id: process.env[oauth2.client_id_env],
                 redirect_uri: process.env.OAUTH_REDIRECT_URI,
-                scope: config.scopes,
+                scope: oauth2.scopes,
                 state,
                 response_type: 'code'
             });
 
-            if(config.extra_params)
+            if(oauth2.authorize_params)
             {
-                for(const [key, value] of Object.entries(config.extra_params))
+                for(const [key, value] of Object.entries(oauth2.authorize_params))
                 {
                     params.set(key, value);
                 }
             }
 
             return resolve({
-                authorize_url: config.authorize_url + '?' + params.toString()
+                authorize_url: oauth2.authorize_url + '?' + params.toString()
             });
         }
 
-        if(authType === 'api_key' || authType === 'pat')
+        if(authType === 'api_key')
         {
             if(!properties.credentials || !properties.credentials.token)
             {

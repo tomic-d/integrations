@@ -48,22 +48,22 @@ connections.Fn('callback', function(code, state)
 
     this.methods.exchange = async (code, provider) =>
     {
-        const config = provider.Get('auth').config;
+        const oauth2 = provider.Get('oauth2');
         const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
-        if(config.token_headers)
+        if(oauth2.token_headers)
         {
-            Object.assign(headers, config.token_headers);
+            Object.assign(headers, oauth2.token_headers);
         }
 
-        const response = await fetch(config.token_url, {
+        const response = await fetch(oauth2.token_url, {
             method: 'POST',
             headers,
             body: new URLSearchParams({
                 grant_type: 'authorization_code',
                 code,
-                client_id: process.env[config.client_id_env],
-                client_secret: process.env[config.client_secret_env],
+                client_id: process.env[oauth2.client_id_env],
+                client_secret: process.env[oauth2.client_secret_env],
                 redirect_uri: process.env.OAUTH_REDIRECT_URI
             })
         });
@@ -78,7 +78,7 @@ connections.Fn('callback', function(code, state)
 
     this.methods.save = async (teamId, providerId, provider, parsed) =>
     {
-        const config = provider.Get('auth').config;
+        const oauth2 = provider.Get('oauth2');
 
         const connection = connections.Item({
             team_id: teamId,
@@ -90,7 +90,7 @@ connections.Fn('callback', function(code, state)
                 token_type: parsed.token_type
             }),
             metadata: parsed.metadata,
-            scopes: parsed.scopes || config.scopes || '',
+            scopes: parsed.scopes || oauth2.scopes || '',
             expires_at: parsed.expires_at
         });
 

@@ -9,12 +9,12 @@ connections.Fn('refresh', function(connection)
         this.resolve = resolve;
 
         const provider = providers.ItemGet(connection.Get('provider_id'));
-        const config = provider.Get('auth').config;
+        const oauth2 = provider.Get('oauth2');
         const credentials = connections.Fn('decrypt', connection.Get('credentials'));
 
         this.methods.validate(credentials);
 
-        const data = await this.methods.exchange(config, credentials);
+        const data = await this.methods.exchange(oauth2, credentials);
         const updated = this.methods.save(data, credentials);
 
         this.resolve(updated);
@@ -31,23 +31,23 @@ connections.Fn('refresh', function(connection)
         }
     };
 
-    this.methods.exchange = async (config, credentials) =>
+    this.methods.exchange = async (oauth2, credentials) =>
     {
         const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
-        if(config.token_headers)
+        if(oauth2.token_headers)
         {
-            Object.assign(headers, config.token_headers);
+            Object.assign(headers, oauth2.token_headers);
         }
 
-        const response = await fetch(config.token_url, {
+        const response = await fetch(oauth2.token_url, {
             method: 'POST',
             headers,
             body: new URLSearchParams({
                 grant_type: 'refresh_token',
                 refresh_token: credentials.refresh_token,
-                client_id: process.env[config.client_id_env],
-                client_secret: process.env[config.client_secret_env]
+                client_id: process.env[oauth2.client_id_env],
+                client_secret: process.env[oauth2.client_secret_env]
             })
         });
 

@@ -7,14 +7,9 @@ const providers = divhunt.Addon('providers', (addon) =>
     addon.Field('slug', ['string']);
     addon.Field('description', ['string', '']);
     addon.Field('icon', ['string', '']);
-    addon.Field('auth', {
-        type: 'object',
-        value: {},
-        config: {
-            type: ['string', 'oauth2'],
-            config: ['object', {}]
-        }
-    });
+    addon.Field('auth_type', ['string', 'oauth2']);
+    addon.Field('oauth2', ['object', null]);
+    addon.Field('api_key', ['object', null]);
     addon.Field('base_url', ['string']);
     addon.Field('callback', ['function', null]);
     addon.Field('status', ['string', 'active']);
