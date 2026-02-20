@@ -11,6 +11,5 @@ providers.Item({
         header_name: 'Authorization',
         header_prefix: 'Bearer'
     },
-    base_url: 'https://api.stripe.com/v1',
-    status: 'active'
+    base_url: 'https://api.stripe.com/v1'
 });

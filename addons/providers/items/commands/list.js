@@ -20,8 +20,7 @@ commands.Item({
 
         resolve({
             providers: items
-                .filter(item => item.Get('status') === 'active')
-                .map(item => item.Get(['id', 'name', 'slug', 'description', 'icon', 'base_url', 'auth_type', 'status']))
+                .map(item => item.Get(['id', 'name', 'slug', 'description', 'icon', 'base_url', 'auth_type']))
         });
     }
 });

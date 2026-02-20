@@ -14,7 +14,7 @@ connections.Fn('callback', function(code, state)
         const provider = this.methods.provider(providerId);
         const data = await this.methods.exchange(code, provider);
         this.methods.debug(providerId, data);
-        const parsed = provider.Get('callback')(data);
+        const parsed = provider.Get('oauth2').callback(data);
         const connection = await this.methods.save(teamId, providerId, provider, parsed);
 
         this.resolve(connection);

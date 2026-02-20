@@ -16,19 +16,18 @@ providers.Item({
         authorize_params: {
             access_type: 'offline',
             prompt: 'consent'
+        },
+        callback: function(data)
+        {
+            return {
+                access_token: data.access_token,
+                refresh_token: data.refresh_token,
+                token_type: data.token_type,
+                expires_at: new Date(Date.now() + data.expires_in * 1000).toISOString(),
+                scopes: data.scope,
+                metadata: {}
+            };
         }
     },
-    base_url: 'https://www.googleapis.com/calendar/v3',
-    callback: function(data)
-    {
-        return {
-            access_token: data.access_token,
-            refresh_token: data.refresh_token,
-            token_type: data.token_type,
-            expires_at: new Date(Date.now() + data.expires_in * 1000).toISOString(),
-            scopes: data.scope,
-            metadata: {}
-        };
-    },
-    status: 'active'
+    base_url: 'https://www.googleapis.com/calendar/v3'
 });

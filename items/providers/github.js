@@ -15,19 +15,18 @@ providers.Item({
         client_secret_env: 'GITHUB_CLIENT_SECRET',
         token_headers: {
             'Accept': 'application/json'
+        },
+        callback: function(data)
+        {
+            return {
+                access_token: data.access_token,
+                refresh_token: null,
+                token_type: data.token_type,
+                expires_at: null,
+                scopes: data.scope,
+                metadata: {}
+            };
         }
     },
-    base_url: 'https://api.github.com',
-    callback: function(data)
-    {
-        return {
-            access_token: data.access_token,
-            refresh_token: null,
-            token_type: data.token_type,
-            expires_at: null,
-            scopes: data.scope,
-            metadata: {}
-        };
-    },
-    status: 'active'
+    base_url: 'https://api.github.com'
 });

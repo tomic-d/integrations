@@ -12,22 +12,21 @@ providers.Item({
         token_url: 'https://slack.com/api/oauth.v2.access',
         scopes: 'chat:write,channels:read,channels:manage',
         client_id_env: 'SLACK_CLIENT_ID',
-        client_secret_env: 'SLACK_CLIENT_SECRET'
+        client_secret_env: 'SLACK_CLIENT_SECRET',
+        callback: function(data)
+        {
+            return {
+                access_token: data.access_token,
+                refresh_token: null,
+                token_type: data.token_type,
+                expires_at: null,
+                scopes: data.scope,
+                metadata: {
+                    team: data.team,
+                    user: data.authed_user
+                }
+            };
+        }
     },
-    base_url: 'https://slack.com/api',
-    callback: function(data)
-    {
-        return {
-            access_token: data.access_token,
-            refresh_token: null,
-            token_type: data.token_type,
-            expires_at: null,
-            scopes: data.scope,
-            metadata: {
-                team: data.team,
-                user: data.authed_user
-            }
-        };
-    },
-    status: 'active'
+    base_url: 'https://slack.com/api'
 });
