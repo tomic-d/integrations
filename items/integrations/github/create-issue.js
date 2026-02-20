@@ -1,0 +1,45 @@
+import actions from '#actions/addon.js';
+
+actions.Item({
+    id: 'github:create-issue',
+    provider_id: 'github',
+    name: 'Create Issue',
+    description: 'Create a new issue in a GitHub repository.',
+    input: {
+        owner: { type: 'string', required: true, description: 'Repository owner' },
+        repo: { type: 'string', required: true, description: 'Repository name' },
+        title: { type: 'string', required: true, description: 'Issue title' },
+        body: { type: 'string', description: 'Issue body' },
+        labels: { type: 'array', description: 'Labels to add' }
+    },
+    output: {
+        number: { type: 'number' },
+        url: { type: 'string' }
+    },
+    execute: async function({ token, input, base_url })
+    {
+        const response = await fetch(base_url + '/repos/' + input.owner + '/' + input.repo + '/issues', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: input.title,
+                body: input.body || '',
+                labels: input.labels || []
+            })
+        });
+
+        if(!response.ok)
+        {
+            const error = await response.text();
+            throw new Error('GitHub error: ' + error);
+        }
+
+        const data = await response.json();
+
+        return { number: data.number, url: data.html_url };
+    }
+});
