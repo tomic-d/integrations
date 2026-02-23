@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import divhunt from 'divhunt';
-import commands from 'divhunt/commands';
+import onetype from 'onetype';
+import commands from 'onetype/commands';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 

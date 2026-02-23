@@ -1,7 +1,7 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 
 connections.Fn('encrypt', function(data)
 {
-    return divhunt.Encrypt(data, process.env.ENCRYPTION_KEY);
+    return onetype.Encrypt(data, process.env.ENCRYPTION_KEY);
 });

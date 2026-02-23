@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
@@ -28,7 +28,7 @@ connections.Fn('callback', function(code, state)
 
         if(!providerId || !teamId)
         {
-            throw divhunt.Error(400, 'Invalid state parameter.');
+            throw onetype.Error(400, 'Invalid state parameter.');
         }
 
         return { providerId, teamId };
@@ -40,7 +40,7 @@ connections.Fn('callback', function(code, state)
 
         if(!provider)
         {
-            throw divhunt.Error(404, 'Provider not found.');
+            throw onetype.Error(404, 'Provider not found.');
         }
 
         return provider;
@@ -70,7 +70,7 @@ connections.Fn('callback', function(code, state)
 
         if(!response.ok)
         {
-            throw divhunt.Error(502, 'Token exchange failed: ' + await response.text());
+            throw onetype.Error(502, 'Token exchange failed: ' + await response.text());
         }
 
         return await response.json();

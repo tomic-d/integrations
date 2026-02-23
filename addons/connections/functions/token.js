@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
@@ -27,12 +27,12 @@ connections.Fn('token', function(id)
 
         if(!connection)
         {
-            throw divhunt.Error(404, 'Connection not found.');
+            throw onetype.Error(404, 'Connection not found.');
         }
 
         if(connection.Get('status') !== 'active')
         {
-            throw divhunt.Error(400, 'Connection is not active.');
+            throw onetype.Error(400, 'Connection is not active.');
         }
 
         return connection;
@@ -44,7 +44,7 @@ connections.Fn('token', function(id)
 
         if(!provider)
         {
-            throw divhunt.Error(404, 'Provider not found.');
+            throw onetype.Error(404, 'Provider not found.');
         }
 
         return provider;

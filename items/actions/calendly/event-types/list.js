@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import actions from '#actions/addon.js';
 
 actions.Item({
@@ -20,7 +20,7 @@ actions.Item({
 
         if(!response.ok)
         {
-            throw divhunt.Error(502, await response.text());
+            throw onetype.Error(502, await response.text());
         }
 
         const userData = await response.json();
@@ -36,7 +36,7 @@ actions.Item({
 
         if(!result.ok)
         {
-            throw divhunt.Error(502, await result.text());
+            throw onetype.Error(502, await result.text());
         }
 
         const data = await result.json();

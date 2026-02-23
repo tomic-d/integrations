@@ -1,4 +1,4 @@
-import commands from 'divhunt/commands';
+import commands from 'onetype/commands';
 
 commands.Fn('grpc.server', 50000, {
     onStart: function()

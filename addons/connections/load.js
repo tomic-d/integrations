@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 
 /* Functions */
@@ -17,7 +17,7 @@ import '#connections/items/commands/unlink.js';
 import '#connections/items/commands/status.js';
 
 /* Schema */
-divhunt.DataSchema('connection', {
+onetype.DataSchema('connection', {
     id: ['string', null, true],
     team_id: ['string', null, true],
     provider_id: ['string', null, true],

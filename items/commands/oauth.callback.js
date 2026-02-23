@@ -1,4 +1,4 @@
-import commands from 'divhunt/commands';
+import commands from 'onetype/commands';
 import connections from '#connections/addon.js';
 
 commands.Item({

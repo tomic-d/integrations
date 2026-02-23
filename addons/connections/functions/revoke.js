@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 
 connections.Fn('revoke', async function(id)
@@ -7,7 +7,7 @@ connections.Fn('revoke', async function(id)
 
     if(!connection)
     {
-        throw divhunt.Error(404, 'Connection not found.');
+        throw onetype.Error(404, 'Connection not found.');
     }
 
     connection.Set('status', 'revoked');

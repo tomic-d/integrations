@@ -1,4 +1,4 @@
-import database from 'divhunt/database';
+import database from 'onetype/database';
 
 database.Item({
     id: 'primary',

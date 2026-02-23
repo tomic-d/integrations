@@ -1,6 +1,6 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 
-const connections = divhunt.Addon('connections', (addon) =>
+const connections = onetype.Addon('connections', (addon) =>
 {
     addon.Table('connections');
 

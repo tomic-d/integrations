@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import actions from '#actions/addon.js';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
@@ -20,7 +20,7 @@ actions.Fn('item.run', function(action, id, input = {})
     {
         if(Object.keys(schema).length > 0)
         {
-            return divhunt.DataDefine(data, schema);
+            return onetype.DataDefine(data, schema);
         }
 
         return data;
@@ -32,7 +32,7 @@ actions.Fn('item.run', function(action, id, input = {})
 
         if(!provider)
         {
-            throw divhunt.Error(404, 'Provider not found for action.');
+            throw onetype.Error(404, 'Provider not found for action.');
         }
 
         return provider;

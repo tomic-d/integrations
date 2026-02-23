@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import actions from '#actions/addon.js';
 
 actions.Item({
@@ -24,7 +24,7 @@ actions.Item({
 
         if(!data.ok)
         {
-            throw divhunt.Error(502, data.error || 'Unknown Slack error.');
+            throw onetype.Error(502, data.error || 'Unknown Slack error.');
         }
 
         resolve({

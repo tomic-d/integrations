@@ -1,4 +1,4 @@
-import divhunt from 'divhunt';
+import onetype from 'onetype';
 import connections from '#connections/addon.js';
 import providers from '#providers/addon.js';
 
@@ -27,7 +27,7 @@ connections.Fn('refresh', function(connection)
             connection.Set('status', 'expired');
             connection.Update();
 
-            throw divhunt.Error(400, 'No refresh token. Re-authorization required.');
+            throw onetype.Error(400, 'No refresh token. Re-authorization required.');
         }
     };
 
@@ -56,7 +56,7 @@ connections.Fn('refresh', function(connection)
             connection.Set('status', 'error');
             await connection.Update();
 
-            throw divhunt.Error(502, 'Token refresh failed.');
+            throw onetype.Error(502, 'Token refresh failed.');
         }
 
         return await response.json();
