@@ -1,5 +1,13 @@
 # Integrations
 
+**One service that connects your app to Slack, GitHub, Google, Stripe, and more — and executes actions across all of them through a single, uniform interface.**
+
+Every third-party integration reinvents the same painful wheel: OAuth dances, refreshing tokens, storing secrets safely, and a different API shape for every provider. This service does all of that once. You add a provider by describing it in code; users connect their accounts through OAuth; and from then on your app fires actions like `slack:messages:send` or `stripe:customers:create` through one consistent call — the service handles the auth, the token refresh, and the provider-specific details underneath.
+
+Built by [Dejan Tomic](https://github.com/tomic-d) on [@onetype/framework](https://www.npmjs.com/package/@onetype/framework). Credentials are encrypted at rest.
+
+---
+
 Centralized service for managing third-party API integrations. Handles OAuth2 flows, API key storage, token management, and action execution.
 
 ## Architecture
